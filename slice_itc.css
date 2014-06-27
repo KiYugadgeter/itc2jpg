@@ -6,6 +6,11 @@
     display: none;
 }
 
+#nametext {
+    width: 50%;
+    margin: 0 auto;
+}
+
 #text {
     width: 50%;
     height: 80px;
@@ -52,6 +57,9 @@ div#rector {
     display: none;
 }
 
+div#rector:active {
+    background-color: rgb(3, 88, 218);
+}
 
 #upload {
     display: block;
