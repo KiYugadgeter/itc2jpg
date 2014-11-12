@@ -1,4 +1,5 @@
 itc2jpg
 =======
 
-iTunes artwork to JPEG image.
+
+The converter that iTunes artwork to JPEG image on your browser.
