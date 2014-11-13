@@ -35,7 +35,7 @@ function fileselect(eve) {
     reader.onload = function (e) {
         console.log("onloading file");
         sliced(e);
-    };
+    }
     var buffer = reader.readAsArrayBuffer(file);
 }
 
@@ -46,7 +46,7 @@ function getFile() {
     reader.onload = function (e) {
         console.log("onloading file");
         sliced(e);
-    };
+    }
     var buffer = reader.readAsArrayBuffer(file);
 }
 

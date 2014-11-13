@@ -2,8 +2,13 @@
     font-family: "Helvetica Neue-UltraLight";
 }
 
+body {
+    background-color: rgba(248, 248, 248, 0.69);
+}
+
 #image {
     display: none;
+    margin: 0 auto;
 }
 
 #nametext {
@@ -30,20 +35,18 @@ a#a {
 }
 
 .my_border {
-    border-top: 5px solid rgb(18, 103, 233);
-    border-left: 5px solid rgb(214, 65, 43);
-    border-right: 5px solid rgb(255, 182, 4);
-    border-bottom: 5px solid rgb(0, 158, 89);
 }
 
 div#dropzone {
     color: black;
-    width: 300px;
-    height: 300px;
+    width: 70%;
+    height: 350px;
     z-index: 1;
     margin: 0 auto;
     text-align: center;
-    /*border: 2px solid #4bcaff; */
+    background-color: #FFFFFF;
+    border-bottom: 1px solid rgba(248, 248, 248, 0.69);
+    box-shadow: 1px 1px 9px -8.5px rgba(238, 238, 238), -1px -1px 9px -8.5px rgba(238, 238, 238);
 }
 
 
@@ -81,8 +84,9 @@ div#fixed_navbar {
     top: 0;
     left: 0;
     width: 100%;
-    height: 55px;
-    background-color: rgba(248, 248, 248, 0.89);
+    height: 3rem;
+    font-size: 10px;
+    background-color: #FFFFFF;
     border: 1px solid #e7e7e7;
     padding-right: 15px;
     padding-left: 15px;
@@ -97,4 +101,5 @@ div#fixed_navbar {
 p#title {
     display: block;
     font-family: "Andale Mono";
+    font-size: 1rem;
 }
