@@ -4,10 +4,15 @@
 
 body {
     background-color: rgba(248, 248, 248, 0.69);
+    height: 100%;
 }
 
 #image {
     display: none;
+    margin: 0 auto;
+}
+
+table {
     margin: 0 auto;
 }
 
@@ -38,9 +43,9 @@ a#a {
 }
 
 div#dropzone {
-    color: black;
+    /*color: black;*/
     width: 70%;
-    height: 350px;
+    height: 22.5rem;
     z-index: 1;
     margin: 0 auto;
     text-align: center;
@@ -87,14 +92,15 @@ div#fixed_navbar {
     height: 3rem;
     font-size: 10px;
     background-color: #FFFFFF;
-    border: 1px solid #e7e7e7;
+    border-bottom: 0.25px solid #d7d7d7;
     padding-right: 15px;
     padding-left: 15px;
-    padding-top: 0px
+    padding-top: 0px;
     margin-left: auto;
     margin-top: 0px;
     margin-right: auto;
     text-align: center;
+    box-shadow: 0px 5px 8px -7.5px #101010;
 }
 
 
