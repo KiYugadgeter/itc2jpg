@@ -1,11 +1,6 @@
 var body = document.getElementsByTagName("body")[0];
-var div = document.createElement("div")
-div.id = "rector";
-var atag = document.createElement("a");
-atag.id = "a";
+var filecounter = 0;
 var readerarray = [];
-var image2 = document.getElementById("image");
-var filereader = new FileReader();
 
 function loadfile(listnum) {
     function nu_sliced(eve) {
@@ -13,21 +8,19 @@ function loadfile(listnum) {
         var sliced_data = data.slice(492);
         var b = new Blob([sliced_data], {"type": "image/jpeg"});
         u = window.URL.createObjectURL(b);
-        console.log("listnum", listnum);
-        var image_ele = document.getElementById("img" + String(listnum));
-        var link_ele = document.getElementById("a" + String(listnum));
+        console.log("listnum = " + String(listnum) + ", filecounter = " + String(filecounter) + ", flen = " + String(flen)); 
+        console.log("listnum + filecounter - flen = " + String(listnum + filecounter - flen));
+        var image_ele = document.getElementById("img" + String(listnum + filecounter - flen));
+        var link_ele = document.getElementById("a" + String(listnum + filecounter - flen));
         link_ele.href = u;
         image_ele.src = u;
         image_ele.style.height = "300px";
         image_ele.style.width = "300px";
-        console.log("finished");
-        //div.style.display = "block";
     }
     return nu_sliced;
 }
 
-
-function setpic(listnum, flist) {
+function setpic(listnum, flist, table) {
     var freader = readerarray[listnum];
     freader.onload = loadfile(listnum);
     var elenum = listnum + 1;
@@ -38,55 +31,44 @@ function setpic(listnum, flist) {
     rownum -= 1;
     w -= 1;
     var pic_link = document.createElement("a");
-    pic_link.id = "a" + String(listnum);
+    pic_link.id = "a" + String(listnum + filecounter);
     var pic = document.createElement("img");
-    pic.id = "img" + String(listnum);
+    pic.id = "img" + String(listnum + filecounter);
     pic_link.download = "";
     pic_link.appendChild(pic);
-    console.log(rownum, w);
     table.rows[rownum].cells[w].appendChild(pic_link);
     freader.readAsArrayBuffer(flist[listnum]);
     listnum += 1
-    if (listnum > flist.length - 1) {
-        body.appendChild(table);
+    if (filecounter + listnum > filecounter + flist.length - 1) {
+        filecounter += flist.length; //?
+        var base_of_table = document.createElement("div");
+        base_of_table.className = "base_of_table";
+        base_of_table.style.height = String(300 * table.rows.length + 22) + "px";
+        base_of_table.appendChild(table);
+        body.appendChild(base_of_table);
         return ""
     }
     else {
-        console.log(listnum);
-        setpic(listnum, flist);
+        setpic(listnum, flist, table);
     }
 }
 
 function createTable(flist) {
-    table = document.createElement("table");
+    var pic_table = document.createElement("table");
     flen = flist.length;
     uy = Math.ceil(flist.length / 3);
     for (var nu = 0; nu < uy; nu++) {
-        row = table.insertRow(-1);
+        var row = pic_table.insertRow(-1);
         for (o = 0; o < 3; o++) {
             row.insertCell(-1);
         }
     }
-
+    readerarray = [];
     for (fa = 0; fa < flist.length; fa++) {
         var r = new FileReader();
         readerarray.push(r);
     }
-    setpic(0, flist);
-}
-
-
-function sliced(eve) {
-    image2.style.display = "block";
-    var data = eve.target.result;
-    var sliced_data = data.slice(492);
-    var b = new Blob([sliced_data], {"type": "image/jpeg"});
-    u = window.URL.createObjectURL(b);
-    atag.href = u;
-    atag.innerHTML = "Download";
-    atag.download = "";
-    image2.src = u;
-    div.style.display = "block";
+    setpic(0, flist, pic_table);
 }
 
 function dragover(eve) {
@@ -99,32 +81,12 @@ function fileselect(eve) {
     eve.stopPropagation();
     eve.preventDefault();
     fileslist = eve.dataTransfer.files;
-    if (fileslist.length === 1) {
-        var file = fileslist[0];
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            sliced(e);
-        }
-        var buffer = reader.readAsArrayBuffer(file);
-    }
-    else {
-        createTable(fileslist);
-    }
+    createTable(fileslist);
 }
 
 function getFile() {
     fileslist = this.files;
-    if (fileslist.length === 1) {
-        var file = fileslist[0];
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            sliced(e);
-        }
-        var buffer = reader.readAsArrayBuffer(file);
-    }
-    else {
-        createTable(fileslist);
-    }
+    createTable(fileslist);
 }
 
 input = document.getElementById("upload");
@@ -132,5 +94,3 @@ input.onchange = getFile;
 var d = document.getElementById("dropzone");
 d.addEventListener("dragover", dragover);
 d.addEventListener("drop", fileselect);
-div.appendChild(atag);
-body.appendChild(div);
